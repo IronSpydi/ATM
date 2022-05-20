@@ -1,7 +1,9 @@
 
+from func import func
+obj = func()
 import getpass
 import json
-from pin_generator import PinChange, PinGenerator, deposit, statment, withdrawal
+from func import PinChange, PinGenerator, deposit, statment, withdrawal
 print("\nSelect operation.")
 print("GP   : Generate Pin")
 print("CHP  : Change Pin")
@@ -32,20 +34,21 @@ while True:
 
         elif choice == 'S':
             card_number = input("enter your card number : ")
-            pin = str(getpass.getpass("Enter your pin:"))
-            statment(card_number,pin)
+            if obj.authentication(card_number) :
+                statment(card_number)
             
             pass 
         elif choice == 'D':
             card_number = input("enter your card number : ")
-            pin = str(getpass.getpass("Enter your pin:"))
-            statment(card_number,pin)
-            deposit(card_number,pin)
+            if obj.authentication(card_number) :
+                statment(card_number)
+                deposit(card_number)
+
         elif choice == 'W':
             card_number = input("enter your card number : ")
-            pin = str(getpass.getpass("Enter your pin:"))
-            withdrawal(card_number,pin)
-            statment(card_number,pin)
+            if obj.authentication(card_number) :
+                withdrawal(card_number)
+                statment(card_number)
             pass 
         else:
             if choice =='Q':

@@ -1,5 +1,33 @@
 import getpass
 import json
+class func:
+    def authentication(self,card_number):  
+        with open("B_data.json") as f:
+            data = json.load(f)
+        for i in range(len(data)):
+            if data[i]['Card Number'] == card_number:
+                count = 0
+                while count < 3:
+                    pin = input("enter pin : ")
+                    if pin.isdigit() and len(pin)==4 and data[i]['Pin']==pin:
+                        print("authenticated successfully")
+                        return True
+                        
+                    else:
+                        count=count+1
+                        attempt = 3-count
+                        print("please enter correct 4 digit pin you have {} attempts left".format(attempt))
+
+                if count==3:
+                    print("your card is blocked ! ")
+                    return False
+
+                break
+        else:
+            print("Please enter valid card number")
+
+obj = func()
+
 def PinGenerator(cardn,cvv,ex):
         with open("B_data.json") as f:
             data = json.load(f)
@@ -49,39 +77,39 @@ def PinChange(card_number,old_pin):
                 with open("B_data.json",'w') as f:
                     json.dump(data,f,indent=2)
 
-def statment(card_number,pin):
-    with open("B_data.json") as f:
-        data = json.load(f)
-    for i in range(len(data)):
-        if data[i]['Card Number']==card_number and data[i]['Pin']==pin:
-            amount = data[i]['amount']
-            msg = f'your balance is {amount} rupees'
-            print(msg)
-            break
-    else:
-        print("invalid user")
+def statment(card_number):
+    #if obj.authentication(card_number):
 
-def deposit(card_number,pin):
-            with open("B_data.json") as f:
-                data = json.load(f)
-            for i in range(len(data)):
-                if data[i]['Card Number']==card_number and data[i]['Pin']==pin:
-                    a_of_deposit = int(input("Enter deposit amount : "))
-                    new=int(data[i]['amount'])+a_of_deposit
-                    newdata = {'amount':str(new)}
-                    data[i].update(newdata)
-                    with open("B_data.json",'w') as f:
-                        json.dump(data,f,indent=2)   
+        with open("B_data.json") as f:
+            data = json.load(f)
+        for i in range(len(data)):
+                    amount = data[i]['amount']
+                    msg = f'your balance is {amount} rupees'
+                    print(msg)
                     break
-            else:
-                print("Invalid user")
-def withdrawal(card_number,pin):
+
+def deposit(card_number):
+    #if obj.authentication(card_number):
+
             with open("B_data.json") as f:
                 data = json.load(f)
             for i in range(len(data)):
-                if data[i]['Card Number']==card_number and data[i]['Pin']==pin:
+                a_of_deposit = int(input("Enter deposit amount : "))
+                new=int(data[i]['amount'])+a_of_deposit
+                newdata = {'amount':str(new)}
+                data[i].update(newdata)
+                with open("B_data.json",'w') as f:
+                    json.dump(data,f,indent=2)   
+                break
+
+def withdrawal(card_number):
+            #obj.authentication(card_number)
+
+            with open("B_data.json") as f:
+                data = json.load(f)
+            for i in range(len(data)):
                     a_of_withd = int(input("Enter withdrawal amount : "))
-                    if data[i]['amount'] > a_of_withd:
+                    if int(data[i]['amount']) > a_of_withd:
                         new=int(data[i]['amount'])-a_of_withd
                         newdata = {'amount':str(new)}
                         data[i].update(newdata)
@@ -90,6 +118,5 @@ def withdrawal(card_number,pin):
                         break
                     else:
                         print("you dont have sufficient balance")
-            else:
-                print("Invalid user")
+
 
