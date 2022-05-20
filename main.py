@@ -1,4 +1,7 @@
-from pin_generator import PinGenerator
+
+import getpass
+import json
+from pin_generator import PinChange, PinGenerator, deposit, statment, withdrawal
 print("\nSelect operation.")
 print("GP   : Generate Pin")
 print("CHP  : Change Pin")
@@ -20,14 +23,29 @@ while True:
             card_number = input("enter your card number : ")
             cvv = input("Enter CVV : ")
             expiry = input("Enter Expiry : ")
-            PinGenerator(card_number,cvv,expiry)    
+            PinGenerator(card_number,cvv,expiry)   
+
         elif choice == 'CHP':
-            pass
+            card_number = input("enter your card number : ")
+            old_pin = str(getpass.getpass("Enter your old pin:"))
+            PinChange(card_number,old_pin)
+
         elif choice == 'S':
+            card_number = input("enter your card number : ")
+            pin = str(getpass.getpass("Enter your pin:"))
+            statment(card_number,pin)
+            
             pass 
         elif choice == 'D':
-            pass 
-        elif choice == 'WDL':
+            card_number = input("enter your card number : ")
+            pin = str(getpass.getpass("Enter your pin:"))
+            statment(card_number,pin)
+            deposit(card_number,pin)
+        elif choice == 'W':
+            card_number = input("enter your card number : ")
+            pin = str(getpass.getpass("Enter your pin:"))
+            withdrawal(card_number,pin)
+            statment(card_number,pin)
             pass 
         else:
             if choice =='Q':

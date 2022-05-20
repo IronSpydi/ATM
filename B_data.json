@@ -71,7 +71,8 @@
     "Card Number": "6535860477689382",
     "Expire": "10/26",
     "CVV": "844",
-    "amount": "17569"
+    "amount": "17569",
+    "Pin": "1212"
   },
   {
     "Card Network": "VISA",
@@ -79,6 +80,7 @@
     "Card Number": "4888569477611269892",
     "Expire": "10/23",
     "CVV": "794",
-    "amount": "66476"
+    "amount": "84354",
+    "Pin": "1234"
   }
 ]
